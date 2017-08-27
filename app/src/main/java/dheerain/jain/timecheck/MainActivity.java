@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, -1);
-        long start = calendar.getTimeInMillis();
+        long start = java.lang.System.currentTimeMillis() - android.os.SystemClock.elapsedRealtime();
         long end = System.currentTimeMillis();
 /*
         List<UsageStats> stats = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_WEEKLY, start, end);

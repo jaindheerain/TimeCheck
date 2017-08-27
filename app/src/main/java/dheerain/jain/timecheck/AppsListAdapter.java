@@ -40,28 +40,35 @@ public class AppsListAdapter extends RecyclerView.Adapter<AppsListAdapter.ViewHo
     @Override
     public void onBindViewHolder(AppsListAdapter.ViewHolder holder, int position) {
 
-        holder.name.setText(usageStatses.get(position).getPackageName());
-        try {
-            holder.icon.setImageDrawable(context.getPackageManager()
-                    .getApplicationIcon(usageStatses.get(position).getPackageName()));
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+        int time = (int) (usageStatses.get(position).getTotalTimeInForeground() / 1000);
+        if (time > 5) {
+
+
+            holder.name.setText(usageStatses.get(position).getPackageName());
+
+            holder.time.setText(time+ "");
+            try {
+                holder.icon.setImageDrawable(context.getPackageManager()
+                        .getApplicationIcon(usageStatses.get(position).getPackageName()));
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+
         }
-
     }
-
     @Override
     public int getItemCount() {
         return usageStatses.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name;
+        TextView name,time;
         ImageView icon;
         public ViewHolder(View itemView) {
             super(itemView);
             name= (TextView) itemView.findViewById(R.id.name);
             icon= (ImageView) itemView.findViewById(R.id.appIcon);
+            time= (TextView) itemView.findViewById(R.id.time);
         }
     }
 }
